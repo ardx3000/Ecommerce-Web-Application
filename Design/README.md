@@ -1,0 +1,1 @@
+This folder is used to store all the design documents of the projects.
