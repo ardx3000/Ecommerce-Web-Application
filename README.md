@@ -3,9 +3,9 @@
 A web application oriented for customers to post and find local day-by-day jobs.
 
 ## Tech stack:
-ASP.NET
-SQL
-MVC Model-View-Controller design
+- ASP.NET
+- SQL
+- MVC Model-View-Controller design
 
 ## Functional requirements:
 
