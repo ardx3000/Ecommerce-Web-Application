@@ -29,7 +29,7 @@ namespace Ecommerce_Web_Application.Controllers
         {
             //Storing user iformation in plain text in DB only for test.
             //TODO add security for user's credentials.
-            //TODO check if the user its in the database already.
+            //TODO check if the user its already in the database .
             _context.User.Add(user);
             _context.SaveChanges();
             return View();
