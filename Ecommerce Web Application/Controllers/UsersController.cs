@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Ecommerce_Web_Application.Data;
 using Ecommerce_Web_Application.Models;
 
@@ -12,11 +13,13 @@ namespace Ecommerce_Web_Application.Controllers
 {
     public class UsersController : Controller
     {
-        private readonly Ecommerce_Web_ApplicationContext _context;
+        private readonly UserManager<UserViewModel> _userManager;
+        private readonly SignInManager<UserViewModel> _signInManager;
 
-        public UsersController(Ecommerce_Web_ApplicationContext context)
+        public UsersController(UserManager<UserViewModel> userManager, SignInManager<UserViewModel> signInManager)
         {
-            _context = context;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public IActionResult Register()
@@ -25,13 +28,22 @@ namespace Ecommerce_Web_Application.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(User user) 
-        {
-            //Storing user iformation in plain text in DB only for test.
-            //TODO add security for user's credentials.
-            //TODO check if the user its already in the database .
-            _context.User.Add(user);
-            _context.SaveChanges();
+        public async Task<IActionResult> Register(UserViewModel user){
+        
+            if (ModelState.IsValid)
+            {
+                var result = await _userManager.CreateAsync(user, user.PasswordHash);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Welcome");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+            }
             return View();
         }
 
@@ -41,26 +53,17 @@ namespace Ecommerce_Web_Application.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(User user)
+        public async Task<IActionResult> Login(UserViewModel user)
         {
-            //A really simple and "silly" way to login, this method does not contain any security. TO NOT BE USED IN AN WEB-APPILCATION THAT INTERACTS WITH USERS.
-            //I am using this for a DEMO
-            //TODO add security for login.
+            var result = await _signInManager.PasswordSignInAsync(user.UserName, user.PasswordHash, isPersistent: false, lockoutOnFailure: false);
 
-
-            var storedUser = _context.User.FirstOrDefault(u => u.UserName == user.UserName && u.Password == user.Password);
-            
-            if (storedUser != null)
+            if (result.Succeeded)
             {
-                //Succesful login.
                 return RedirectToAction("Welcome");
             }
-            else
-            {
-                //Failed login.
-                return RedirectToAction("Login");
-            }
 
+            ModelState.AddModelError("", "Invalid login attempt! ");
+            return View();
         }
       
     }

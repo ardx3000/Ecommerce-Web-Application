@@ -1,6 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Ecommerce_Web_Application.Data;
+using Ecommerce_Web_Application.Models;
+using Microsoft.AspNetCore.Identity;
+using System.Configuration;
+
 namespace Ecommerce_Web_Application
 {
     public class Program
@@ -10,6 +14,14 @@ namespace Ecommerce_Web_Application
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddDbContext<Ecommerce_Web_ApplicationContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("Ecommerce_Web_ApplicationContext") ?? throw new InvalidOperationException("Connection string 'Ecommerce_Web_ApplicationContext' not found.")));
+
+
+
+
+            builder.Services.AddIdentity<UserViewModel, IdentityRole>()
+                .AddEntityFrameworkStores<Ecommerce_Web_ApplicationContext>()
+                .AddDefaultTokenProviders();
+
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
