@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
-using Ecommerce_Web_Application.Data;
 using Ecommerce_Web_Application.Models;
 
 namespace Ecommerce_Web_Application.Controllers
@@ -21,7 +14,7 @@ namespace Ecommerce_Web_Application.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
-
+        //TODO add email address for registration and phone number.
         public IActionResult Register()
         {
             return View();

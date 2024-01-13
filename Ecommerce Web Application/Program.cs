@@ -1,9 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Ecommerce_Web_Application.Data;
 using Ecommerce_Web_Application.Models;
 using Microsoft.AspNetCore.Identity;
-using System.Configuration;
 
 namespace Ecommerce_Web_Application
 {
