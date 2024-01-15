@@ -21,11 +21,26 @@ namespace Ecommerce_Web_Application.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(UserViewModel user){
         
             if (ModelState.IsValid)
             {
-                var result = await _userManager.CreateAsync(user, user.PasswordHash);
+                var newUser = new UserViewModel
+                {
+                    UserName = user.UserName,
+                    Email = user.Email,
+                    PhoneNumber = user.PhoneNumber,
+
+                };
+
+                if (!(user.PasswordHash == user.ConfirmPassword))
+                {
+                    ModelState.AddModelError("ConfrimPassword", "The password and confirmation password do not match.");
+                    return View();
+                }
+
+                var result = await _userManager.CreateAsync(newUser, user.PasswordHash);
 
                 if (result.Succeeded)
                 {
@@ -46,6 +61,7 @@ namespace Ecommerce_Web_Application.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(UserViewModel user)
         {
             var result = await _signInManager.PasswordSignInAsync(user.UserName, user.PasswordHash, isPersistent: false, lockoutOnFailure: false);

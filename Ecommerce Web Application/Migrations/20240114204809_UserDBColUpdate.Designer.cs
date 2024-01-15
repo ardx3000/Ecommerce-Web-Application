@@ -3,6 +3,7 @@ using Ecommerce_Web_Application.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecommerce_Web_Application.Migrations
 {
     [DbContext(typeof(Ecommerce_Web_ApplicationContext))]
-    partial class Ecommerce_Web_ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240114204809_UserDBColUpdate")]
+    partial class UserDBColUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
