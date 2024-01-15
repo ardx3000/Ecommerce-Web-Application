@@ -9,10 +9,10 @@ A web application oriented for customers to post and find local day-by-day jobs.
 
 ## Functional requirements:
 
-- [] Data Base
+- [x] Data Base
 - [] Back-end logic to process requests(POST, GET)
 - [] Front end UI
-- [] Register and Login function
+- [x] Register and Login function
 
 ## Non-Functional requirements:
 
