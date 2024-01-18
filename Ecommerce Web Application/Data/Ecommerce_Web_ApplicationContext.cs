@@ -29,7 +29,6 @@ namespace Ecommerce_Web_Application.Data
                 .Ignore(c => c.SecurityStamp);
 
 
-
         }
     }
 }

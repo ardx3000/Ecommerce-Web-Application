@@ -14,7 +14,7 @@ namespace Ecommerce_Web_Application.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
-        //TODO add email address for registration and phone number.
+
         public IActionResult Register()
         {
             return View();
@@ -74,6 +74,5 @@ namespace Ecommerce_Web_Application.Controllers
             ModelState.AddModelError("", "Invalid login attempt! ");
             return View();
         }
-      
     }
 }

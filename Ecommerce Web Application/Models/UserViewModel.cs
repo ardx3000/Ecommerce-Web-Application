@@ -13,6 +13,5 @@ namespace Ecommerce_Web_Application.Models
         {
             
         }
-
     }
 }
