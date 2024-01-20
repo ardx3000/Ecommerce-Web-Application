@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "User Profile";
+}
+
+@model UserViewModel
+
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <h3>Current Details</h3>
+    <d1 class="row">
+        <dt class="col-sm-2">Username:</dt>
+        <dd class="col-sm-10">@Model.UserName</dd>
+
+        <dt class="col-sm-2">Email:</dt>
+        <dd class="col-sm-10">@Model.Email</dd>
+
+        <dt class="col-sm-2">Phone Number:</dt>
+        <dd class="col-sm-10">@Model.PhoneNumber</dd>
+    </d1>
+    
+    <hr />
+
+    <form asp-action="UpdateProfile" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="PhoneNumber"></label>
+            <input asp-for="PhoneNumber" class="form-control" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Profile</button>
+    </form>
+
+</div>
