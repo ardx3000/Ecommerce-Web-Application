@@ -2,32 +2,35 @@
     ViewData["Title"] = "User Profile";
 }
 
-@model UserViewModel
+@model UserEditViewModel
 
 
 <h2>@ViewData["Title"]</h2>
 
 <div>
     <h3>Current Details</h3>
-    <d1 class="row">
-        <dt class="col-sm-2">Username:</dt>
-        <dd class="col-sm-10">@Model.UserName</dd>
+    <dl class="row">
+        @if (ViewBag.UserViewModel != null)
+        {
+            <dt class="col-sm-2">Username:</dt>
+            <dd class="col-sm-10">@ViewBag.UserViewModel.UserName</dd>
 
-        <dt class="col-sm-2">Email:</dt>
-        <dd class="col-sm-10">@Model.Email</dd>
+            <dt class="col-sm-2">Email:</dt>
+            <dd class="col-sm-10">@ViewBag.UserViewModel.Email</dd>
 
-        <dt class="col-sm-2">Phone Number:</dt>
-        <dd class="col-sm-10">@Model.PhoneNumber</dd>
-    </d1>
+            <dt class="col-sm-2">Phone Number:</dt>
+            <dd class="col-sm-10">@ViewBag.UserViewModel.PhoneNumber</dd>
+        }
+    </dl>
     
     <hr />
 
-    <form asp-action="UpdateProfile" method="post">
+    <form asp-controller="Users" asp-action="UserProfile" method="post">
         <div asp-validation-summary="All" class="text-danger"></div>
 
         <div class="form-group">
             <label asp-for="Email"></label>
-            <input asp-for="Email" class="form-control" />
+            <input asp-for="Email" type="email" class="form-control" />
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
 
@@ -35,6 +38,14 @@
             <label asp-for="PhoneNumber"></label>
             <input asp-for="PhoneNumber" class="form-control" />
             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="NewPassWord">New password:</label>
+            <input asp-for="NewPassword" type="password" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="ConfirmPassword">Confirm password:</label>
+            <input asp-for="PasswordValidation" type="password" class="form-control" />
         </div>
 
         <button type="submit" class="btn btn-primary">Update Profile</button>

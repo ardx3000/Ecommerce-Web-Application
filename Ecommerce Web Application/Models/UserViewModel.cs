@@ -8,8 +8,12 @@ namespace Ecommerce_Web_Application.Models
     {
         [NotMapped]
         [DataType(DataType.Password)]
-        [Compare("PasswordHash", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [NotMapped]
+        [DataType(DataType.Password)]
+        public string NewPassword { get; set; }
+
         public UserViewModel()
         {
             
