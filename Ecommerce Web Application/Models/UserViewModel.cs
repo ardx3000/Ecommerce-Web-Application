@@ -10,10 +10,6 @@ namespace Ecommerce_Web_Application.Models
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
 
-        [NotMapped]
-        [DataType(DataType.Password)]
-        public string NewPassword { get; set; }
-
         public UserViewModel()
         {
             
