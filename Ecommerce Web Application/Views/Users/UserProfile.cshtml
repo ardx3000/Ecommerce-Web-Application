@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "User Profile";
+}
+
+@model UserEditViewModel
+
+
+
+<h2>@ViewData["Title"]</h2>
+
+    
+    <hr />
+
+    <form asp-controller="Users" asp-action="UserProfile" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" type="email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="PhoneNumber"></label>
+            <input asp-for="PhoneNumber" class="form-control" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="NewPassWord">New password:</label>
+            <input asp-for="NewPassword" type="password" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="ConfirmPassword">Confirm password:</label>
+            <input asp-for="PasswordValidation" type="password" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Profile</button>
+    </form>
+
+</div>
