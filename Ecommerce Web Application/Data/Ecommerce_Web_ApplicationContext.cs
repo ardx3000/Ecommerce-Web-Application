@@ -12,6 +12,7 @@ namespace Ecommerce_Web_Application.Data
         }
 
         public DbSet<Ecommerce_Web_Application.Models.UserViewModel> User { get; set; } = default!;
+        public DbSet<Ecommerce_Web_Application.Models.JobPostViewModel> JobPost { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -27,6 +28,12 @@ namespace Ecommerce_Web_Application.Data
                 .Ignore(c => c.PhoneNumberConfirmed)
                 .Ignore(c => c.TwoFactorEnabled)
                 .Ignore(c => c.SecurityStamp);
+
+            modelBuilder.Entity<JobPostViewModel>()
+                .HasOne(j => j.User)
+                .WithMany(u => u.JobAdverts)
+                .HasForeignKey(u => u.UserId);
+
 
 
         }

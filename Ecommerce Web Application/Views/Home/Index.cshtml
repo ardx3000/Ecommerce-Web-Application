@@ -2,7 +2,64 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@{
+    if (User.Identity.IsAuthenticated)
+    {
+        <button id="addJobButton" class="btn btn-primary btn-lg rounded-circle" style="position: fixed; bottom: 20px; right: 20px; background-color: #808080;">+</button>
+    }
+}
+
+
+
+<!-- Job Windows HTML-->
+<div class="modal fade" id="jobModal" tabindex="-1" role="dialog" aria-labelledby="jobModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="jobModalLabel">Add Job</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Form for job details -->
+                <form method="post" action="@Url.Action("AddJob", "Home")">
+                    <div class="form-group">
+                        <label for="jobTitle">Title:</label>
+                        <input type="text" class="form-control" name="jobTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="jobDescription">Description:</label>
+                        <textarea class="form-control" name="jobDescription" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Job</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            // Show the modal when the button is clicked
+            $('#addJobButton').click(function () {
+                $('#jobModal').modal('show');
+            });
+
+            // Handle job submission
+            $('#jobModal form').submit(function (e) {
+
+
+                // Retrieve job details from the form
+                var title = $('#jobTitle').val();
+                var description = $('#jobDescription').val();
+
+                // TODO: Send the job details to the server using AJAX or submit the form
+
+                // Close the modal
+                $('#jobModal').modal('hide');
+            });
+        });
+    </script>
+}

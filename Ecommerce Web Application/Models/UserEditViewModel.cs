@@ -25,6 +25,7 @@ namespace Ecommerce_Web_Application.Models
         [DataType(DataType.Password)]
         public string PasswordValidation { get; set; }
 
+
         public void MapToUserViewModel(UserViewModel user, PasswordHasher<UserViewModel> passwordHasher)
         {
             user.Email = Email;

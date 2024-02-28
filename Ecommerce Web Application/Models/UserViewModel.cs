@@ -10,6 +10,8 @@ namespace Ecommerce_Web_Application.Models
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
 
+        public ICollection<JobPostViewModel> JobAdverts { get; set; } = new List<JobPostViewModel>();
+
         public UserViewModel()
         {
             
