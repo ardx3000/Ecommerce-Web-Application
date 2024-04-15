@@ -17,10 +17,16 @@ namespace Ecommerce_Web_Application.Controllers
             _context = context;
         }
 
+
+        //get ...
+        [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            var jobPosts = _context.JobPost.ToList();
+            return View(jobPosts);
         }
+
+        //httpGet data to build the views
 
 
 
@@ -29,20 +35,32 @@ namespace Ecommerce_Web_Application.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult AddJob(string jobTitle, string jobDescription)
         {
-            //Get Logged user.
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            var jobPost = new JobPostViewModel
+            if (ModelState.IsValid)
             {
-                Title = jobTitle,
-                Description = jobDescription,
-                UserId = userId,
-                CreatedDate = DateTime.Now
-            };
+                if (!string.IsNullOrEmpty(jobTitle) && !string.IsNullOrEmpty(jobDescription))
+                {
+                    //Get Logged user.
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            _context.JobPost.Add(jobPost);
-            _context.SaveChangesAsync();
-            return RedirectToAction("Index");
+                    var newJobPost = new JobPostViewModel
+                    {
+                        Title = jobTitle,
+                        Description = jobDescription,
+                        CreatedDate = DateTime.Now,
+                        UserId = userId
+                    };
+
+                    _context.JobPost.Add(newJobPost);
+                    _context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Please provide both job title and description.");
+                }
+            }
+            // If model state is not valid, return to the view with validation errors
+            return View();
         }
 
 

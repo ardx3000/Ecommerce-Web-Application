@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@using System.Security.Claims
 
 @{
     if (User.Identity.IsAuthenticated)
@@ -9,7 +10,16 @@
     }
 }
 
+<link rel="stylesheet" type="text/css" href="~/Content/site.css" />
+<h2>Job Posts</h2>
 
+@foreach (var jobPost in Model)
+{
+    <div class="job-box">
+        <h3>@jobPost.Title</h3>
+        <p>@jobPost.Description</p>
+    </div>
+}
 
 <!-- Job Windows HTML-->
 <div class="modal fade" id="jobModal" tabindex="-1" role="dialog" aria-labelledby="jobModalLabel" aria-hidden="true">
@@ -34,6 +44,7 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Save Job</button>
                 </form>
+
             </div>
         </div>
     </div>
@@ -49,13 +60,29 @@
 
             // Handle job submission
             $('#jobModal form').submit(function (e) {
+                // Prevent default form submission
+                e.preventDefault();
 
+                // Retrieve job details from the form inputs
+                var title = $('#jobModal input[name="jobTitle"]').val();
+                var description = $('#jobModal textarea[name="jobDescription"]').val();
 
-                // Retrieve job details from the form
-                var title = $('#jobTitle').val();
-                var description = $('#jobDescription').val();
-
-                // TODO: Send the job details to the server using AJAX or submit the form
+                // Send the job details to the server using AJAX
+                $.ajax({
+                    url: '@Url.Action("AddJob", "Home")', // Use Razor syntax to generate URL for AddJob action
+                    type: 'POST', // Specify the request type
+                    data: { jobTitle: title, jobDescription: description }, // Pass the job details as data
+                    success: function (response) {
+                        // Optionally handle success response from the server
+                        console.log('Job details sent successfully');
+                        // Reload the page or update the UI as needed
+                        location.reload(); // Reload the page to refresh job posts
+                    },
+                    error: function (xhr, status, error) {
+                        // Optionally handle errors
+                        console.error('Error sending job details:', error);
+                    }
+                });
 
                 // Close the modal
                 $('#jobModal').modal('hide');

@@ -73,7 +73,7 @@ namespace Ecommerce_Web_Application.Controllers
 
             if (result.Succeeded)
             {
-                return RedirectToAction("UserProfile");
+                return RedirectToAction("Index", "Home");
             }
 
             ModelState.AddModelError("", "Invalid login attempt! ");
