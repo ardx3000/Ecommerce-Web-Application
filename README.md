@@ -1,5 +1,5 @@
 # Ecommerce application for local jobs
-
+# The project is not done but I will nor work on it for a while
 A web application oriented for customers to post and find local day-by-day jobs.
 
 ## Tech stack:
